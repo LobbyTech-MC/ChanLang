@@ -1,14 +1,13 @@
 package cn.whiteg.chanlang;
 
+import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityTypes;
+import org.bukkit.entity.Player;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-
-import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.world.entity.EntityTypes;
 
 public class NMSUtils {
     public static EntityPlayer getNmsPlayer(Player player) {
