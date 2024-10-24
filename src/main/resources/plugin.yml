@@ -1,0 +1,9 @@
+name: ChanLang
+main: cn.whiteg.chanlang.ChanLang
+version: 2.4
+api-version: 1.17
+author: MoeWhite
+commands:
+  chanlang:
+    description: The is ChanLang Command
+    aliases: ['chanlang', 'clang']

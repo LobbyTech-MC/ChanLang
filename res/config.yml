@@ -1,8 +1,0 @@
-#配置文件版本
-ver: 2
-#语言
-lang-list:
-  - zh_cn
-  - en_us
-#debug
-debug: false

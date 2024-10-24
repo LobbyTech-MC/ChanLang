@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>me.ChanLang</groupId>
+  <artifactId>ChanLang</artifactId>
+  <version>1.0.0</version>
+  <name>ChanLang</name>
+  
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+  </properties>
+    
+  <repositories>
+        <!-- Spigot Repo -->
+       <repository>
+           <id>spigot-repo</id>
+           <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+       </repository>
+       <repository>
+           <id>jitpack.io</id>
+           <url>https://jitpack.io</url>
+       </repository>
+       <repository>
+           <id>dmulloy2-repo</id>
+           <url>https://repo.dmulloy2.net/repository/public/</url>
+       </repository>
+   </repositories>
+   
+   <dependencies>
+       <dependency>
+          <groupId>org.spigotmc</groupId>
+          <artifactId>spigot-api</artifactId>
+          <version>1.21.1-R0.1-SNAPSHOT</version>
+          <scope>provided</scope>
+       </dependency>
+       <dependency>
+          <groupId>org.spigotmc</groupId>
+          <artifactId>spigot</artifactId>
+          <version>1.17.1-dev</version>
+          <scope>system</scope>
+          <systemPath>C:\Users\11877\eclipse-workspace\ChanLang/lib/spigot-1.17.1-dev.jar</systemPath>
+       </dependency>
+       <dependency>
+           <groupId>org.projectlombok</groupId>
+           <artifactId>lombok</artifactId>
+           <version>1.18.24</version>
+       </dependency>
+       <dependency>
+           <groupId>com.comphenix.protocol</groupId>
+           <artifactId>ProtocolLib</artifactId>
+           <version>5.3.0</version>
+           <scope>provided</scope>
+       </dependency>
+   </dependencies>
+   
+</project>
