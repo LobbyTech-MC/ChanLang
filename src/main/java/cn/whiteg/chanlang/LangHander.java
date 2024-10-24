@@ -123,6 +123,7 @@ public class LangHander {
                 Field f = NMSUtils.getFieldFormType(LocaleLanguage.class,LocaleLanguage.class);
                 f.setAccessible(true);
                 f.set(null,new LocaleLanguage() {
+                    @Override
                     public String a(String key, String fallback) {
                         return map.getOrDefault(key, fallback);
                     }

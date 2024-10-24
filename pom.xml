@@ -37,9 +37,8 @@
        <dependency>
           <groupId>org.spigotmc</groupId>
           <artifactId>spigot</artifactId>
-          <version>1.17.1-dev</version>
-          <scope>system</scope>
-          <systemPath>C:\Users\11877\eclipse-workspace\ChanLang/lib/spigot-1.17.1-dev.jar</systemPath>
+          <version>1.21.1-R0.1-SNAPSHOT</version>
+          <scope>provided</scope>
        </dependency>
        <dependency>
            <groupId>org.projectlombok</groupId>
