@@ -14,11 +14,11 @@ public class clearall extends CommandInterface {
     @Override
     public boolean onCommand(CommandSender sender,Command cmd,String label,String[] args) {
         if (!canUseCommand(sender)){
-            sender.sendMessage("§cNo Permission§f" + permission);
+            sender.sendMessage("§c你没有权限§f" + permission);
             return true;
         }
         ChanLang.getHandler().setMap(ImmutableMap.of());
-        sender.sendMessage("§bCleared§f");
+        sender.sendMessage("§b已清除§f");
         return true;
     }
 
