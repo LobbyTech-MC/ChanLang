@@ -1,17 +1,16 @@
 package cn.whiteg.chanlang;
 
-import net.minecraft.server.level.EntityPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityTypes;
-import org.bukkit.entity.Player;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
+
 public class NMSUtils {
-    public static EntityPlayer getNmsPlayer(Player player) {
-        return (EntityPlayer) getNmsEntity(player);
+    public static Entity getNmsPlayer(Player player) {
+        return getNmsEntity(player);
     }
 
     public static Entity getNmsEntity(org.bukkit.entity.Entity bukkitEntity) {
@@ -58,13 +57,13 @@ public class NMSUtils {
     }
 
     //根据实体Class获取实体Types
-    public static <T extends Entity> EntityTypes<T> getEntityType(Class<? extends Entity> clazz) {
-        String name = EntityTypes.class.getSimpleName().concat("<").concat(clazz.getSimpleName()).concat(">");
-        for (Field field : EntityTypes.class.getFields()) {
+    public static <T extends Entity> Entity getEntityType(Class<? extends Entity> clazz) {
+        String name = Entity.class.getSimpleName().concat("<").concat(clazz.getSimpleName()).concat(">");
+        for (Field field : Entity.class.getFields()) {
             try{
                 if (field.getAnnotatedType().getType().getTypeName().equals(name))
                     //noinspection unchecked
-                    return (EntityTypes<T>) field.get(null);
+                    return (Entity) field.get(null);
             }catch (IllegalAccessException e){
                 e.printStackTrace();
             }

@@ -1,20 +1,5 @@
 package cn.whiteg.chanlang;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import net.minecraft.locale.LocaleLanguage;
-import net.minecraft.network.chat.ChatModifier;
-import net.minecraft.network.chat.IChatFormatted;
-import net.minecraft.util.ChatDeserializer;
-import net.minecraft.util.FormattedString;
-import net.minecraft.util.StringDecomposer;
-import net.minecraft.util.Unit;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import org.bukkit.Material;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,12 +13,23 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Item;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import net.kyori.adventure.text.Component;
+
+
 public class LangHander {
     static Method itemGetName;
     static Method getBlockName;
     private static Method getBlockMethod;
     private static Method getItemMethod;
-    private static Optional<Unit> chatFormUnit;
 
     static {
         try{
@@ -62,13 +58,8 @@ public class LangHander {
                 }
             }
 
-            try{
-                final Field field = NMSUtils.getFieldFormType(IChatFormatted.class,Optional.class);
-                //noinspection unchecked
-                chatFormUnit = (Optional<Unit>) field.get(null);
-            }catch (NoSuchFieldException | IllegalAccessException e){
-                throw new RuntimeException(e);
-            }
+            //noinspection unchecked
+			Component emptyComponent = Component.empty();
 
 
         }catch (ClassNotFoundException | NoSuchMethodException e){
@@ -109,14 +100,15 @@ public class LangHander {
 
         Map<String, String> builder = new HashMap<>(); //直接用builder的话，怕遇到重复key抛出异常x，还是直接用HashMap吧
         try{
-            try (InputStream inputstream = LocaleLanguage.class.getResourceAsStream("/assets/minecraft/lang/en_us.json");){
+            try (InputStream inputstream = getClass().getClassLoader().getResourceAsStream("assets/minecraft/lang/en_us.json"););){
                 JsonElement jsonelement = (new Gson()).fromJson(new InputStreamReader(inputstream,StandardCharsets.UTF_8),JsonElement.class);
-                JsonObject jsonobject = ChatDeserializer.m(jsonelement,"strings");
-                Iterator<Map.Entry<String, JsonElement>> iterator = jsonobject.entrySet().iterator();
+                JsonObject jsonObject = jsonelement.getAsJsonObject().getAsJsonObject("strings");
+                Iterator<Map.Entry<String, JsonElement>> iterator = jsonObject.entrySet().iterator();
                 while (iterator.hasNext()) {
                     Map.Entry<String, JsonElement> entry = iterator.next();
                     Pattern pattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");
-                    String s = pattern.matcher(ChatDeserializer.a(entry.getValue(),entry.getKey())).replaceAll("%$1s");
+                    String rawString = entry.getValue().isJsonPrimitive() ? entry.getValue().getAsString() : entry.getValue().toString();
+                	String s = pattern.matcher(rawString).replaceAll("%$1s");
                     builder.put(entry.getKey(),s);
                 }
 
