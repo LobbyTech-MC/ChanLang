@@ -3,8 +3,7 @@ package cn.whiteg.chanlang;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
+import net.minecraft.util.ChatDeserializer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -143,11 +142,9 @@ public class ChanLang extends JavaPlugin {
         try{
             Pattern b = Pattern.compile("%(\\d+\\$)?[\\d.]*[df]");
             JsonElement jsonelement = new Gson().fromJson(new InputStreamReader(inputstream,StandardCharsets.UTF_8),JsonElement.class);
-            
-            JsonObject jsonObject = jsonelement.getAsJsonObject().getAsJsonObject("strings");
+            var jsonObject = ChatDeserializer.m(jsonelement,"strings");
             for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-            	String rawString = entry.getValue().isJsonPrimitive() ? entry.getValue().getAsString() : entry.getValue().toString();
-            	String s = b.matcher(rawString).replaceAll("%$1s");
+                var s = b.matcher(ChatDeserializer.a(entry.getValue(),entry.getKey())).replaceAll("%$1s");
                 map.put(entry.getKey(),s);
             }
         } finally {
